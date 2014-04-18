@@ -1,0 +1,63 @@
+<!-- 
+
+Johnny Ubiali
+
+-->
+{% extends 'base.html' %}
+
+{% block titulo %}Formulário de Contas{% endblock titulo %}
+
+{% block conteudo %}
+<form class="form-horizontal" action="/caixas/salvar/" method="POST" role="form">{% csrf_token %}
+
+    <input type="hidden" id="codigo" name="codigo" value="{{ conta.pk|default_if_none:'0' }}">
+
+    <h1>Cadastro de Contas
+    
+    <div class="form-group">
+        <br/>
+        <div class="col-sm-5">
+            <input name="pessoa_id" id="pessoa_id" value="{{ conta.pessoa_id }}" type="text" class="form-control"  placeholder="Id Pessoa">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-5">
+            <input name="descricao" id="Descricao" value="{{ conta.descricao }}" type="text" class="form-control"  placeholder="Descrição da Conta">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-5">
+            <input name="tipo" id="Tipo" value="{{ conta.tipo }}" type="text" class="form-control"  placeholder="Tipo da Conta" maxlength="1">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-5">
+            <input name="valor"0 id="Valor" value="{{ conta.valor|default_if_none:'0' }}" type="text" class="form-control"  placeholder="Valor da Conta">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-5">
+        <input name="data" id="Data" value="{{ conta.data|default_if_none:'' }}" type="text" class="form-control"  placeholder="Data da Conta" data-mask="9999-99-99">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-5">
+            <input name="pagseguro" id="PagSeguro" value="{{ conta.pagseguro }}" type="text" class="form-control"  placeholder="Pag Seguro">
+        </div>
+    </div>
+
+    <hr>
+
+    <div align="center">
+        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-floppy-save"> Salvar Conta</button>
+        {% if conta.pk > 0 %}
+        <a class="btn btn-danger" href="/caixas/excluir/{{ conta.pk }}/"><span class="glyphicon glyphicon-trash"></span> Excluir Registro</a>
+        {% endif %}
+    </div>
+</form>
+{% endblock conteudo %}
